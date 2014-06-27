@@ -1,0 +1,8 @@
+The following are enhancements to serialization in Java SE Development Kit 6 (JDK). For a summary of enhancements in previous releases, see Enhancements in Previous Releases.
+
+java.io.ObjectStreamClass.lookupAny
+    In previous releases, it was difficult to programmatically obtain an ObjectStreamClass instance for a non-serializable Class, although doing so can be desirable when customizing the stream format for class descriptors (see 4413615 for more information). The new method ObjectStreamClass.lookupAny can now be used for this purpose.
+Bug fix: delayed garbage collection
+    In previous releases, bug 6232010 could cause serializable classes and subclasses of ObjectOutputStream and ObjectInputStream to be strongly referenced long after their use in a serialization operation, thus possibly delaying garbage collection of their defining class loaders indefinitely. Internal caches in the serialization implementation have been restructured to fix this bug. 
+    
+source : http://docs.oracle.com/javase/6/docs/technotes/guides/serialization/relnotes6.html

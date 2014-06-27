@@ -1,0 +1,45 @@
+These new collection interfaces are provided:
+
+    Deque - a double ended queue, supporting element insertion and removal at both ends. Extends the Queue interface.
+    BlockingDeque - a Deque with operations that wait for the deque to become non-empty when retrieving an element, and wait for space to become available in the deque when storing an element. Extends both the Deque and BlockingQueue interfaces. (This interface is part of java.util.concurrent.)
+    NavigableSet - a SortedSet extended with navigation methods reporting closest matches for given search targets. A NavigableSet may be accessed and traversed in either ascending or descending order. This interface is intended to supersede the SortedSet interface.
+    NavigableMap - a SortedMap extended with navigation methods returning the closest matches for given search targets. A NavigableMap may be accessed and traversed in either ascending or descending key order. This interface is intended to supersede the SortedMap interface.
+    ConcurrentNavigableMap - a ConcurrentMap that is also a NavigableMap. (This interface is part of java.util.concurrent.)
+
+The following concrete implementation classes have been added:
+
+    ArrayDeque - efficient resizable-array implementation of the Deque interface.
+    ConcurrentSkipListSet - concurrent scalable skip list implementation of the NavigableSet interface.
+    ConcurrentSkipListMap - concurrent scalable skip list implementation of the ConcurrentNavigableMap interface.
+    LinkedBlockingDeque - concurrent scalable optionally bounded FIFO blocking deque backed by linked nodes.
+    AbstractMap.SimpleEntry - simple mutable implementation of Map.Entry
+    AbstractMap.SimpleImmutableEntry - simple immutable implementation of Map.Entry
+
+These existing classes have been retrofitted to implement new interfaces:
+
+    LinkedList - retrofitted to implement the Deque interface.
+    TreeSet - retrofitted to implement the NavigableSet interface.
+    TreeMap - retrofitted to implement the NavigableMap interface.
+
+Two new methods were added to the Collections utility class:
+
+    newSetFromMap(Map) - creates a general purpose Set implementation from a general purpose Map implementation.
+
+    There is no IdentityHashSet class, but instead, just use
+
+    Set<Object> identityHashSet=
+        Collections.newSetFromMap(
+            new IdentityHashMap<Object, Boolean>());
+
+    asLifoQueue(Deque) - returns a view of a Deque as a Last-in-first-out (Lifo) Queue.
+
+The Arrays utility class now has methods copyOf and copyOfRange that can efficiently resize, truncate, or copy subarrays for arrays of all types.
+
+Before:
+
+int[] newArray = new int[newLength];
+System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+
+After:
+
+int[] newArray = Arrays.copyOf(a, newLength);

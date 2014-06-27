@@ -1,0 +1,54 @@
+Enhancements in Java SE 6
+java.io
+
+One new class is provided:
+
+    Console - Contains methods to access a character-based console device. The readPassword() methods disable echoing thus they are suitable for retrieval of sensitive data such as passwords. The method System.console() returns the unique console associated with the Java Virtual Machine.
+
+The following new methods were added to File:
+
+    Methods to retrieve disk usage information:
+        getTotalSpace() returns the size of the partition in bytes
+        getFreeSpace() returns the number of unallocated bytes in the partition
+        getUsableSpace() returns the number of bytes available on the partition and includes checks for write permissions and other operating system restrictions
+    Methods to set or query file permissions:
+        setWritable(boolean writable, boolean ownerOnly) and setWritable(boolean writable) set the owner's or everybody's write permission
+        setReadable(boolean readable, boolean ownerOnly) and setReadable(boolean readable) set the owner's or everybody's read permission
+        setExecutable(boolean executable, boolean ownerOnly) and setExecutable(boolean executable) set the owner's or everybody's execute permission
+        canExecute() tests the value of the execute permission
+
+Constructors were added to the following class:
+
+    IOException supports exception chaining via the addition of the new constructors IOException(String, Throwable) and IOException(Throwable).
+
+The behavior of the following method was modified:
+
+    The File.isFile() Windows implementation has been modified to always return false for reserved device names such as CON, NUL, AUX, LPT, etc. Previously it returned true, which customers considered a bug because it was inconsistent with behavior for devices on Unix.
+
+java.nio
+
+    A new java.nio.channels.SelectorProvider implementation that is based on the Linux epoll event notification facility is included. The epoll facility is available in the Linux 2.6, and newer, kernels. The new epoll-based SelectorProvider implementation is more scalable than the traditional poll-based SelectorProvider implementation when there are thousands of SelectableChannels registered with a Selector. The new SelectorProvider implementation will be used by default when the 2.6 kernel is detected. The poll-based SelectorProvider will be used when a pre-2.6 kernel is detected.
+    The system property sun.nio.ch.disableSystemWideOverlappingFileLockCheck controls whether java.nio.channels.FileChannel.lock() checks whether regions are locked by other instances of FileChannel. Unless this system property is set to true, FileChannel.lock() will throw an OverlappingFileLockException if an application attempts to lock a region that overlaps one that is locked by another instance of FileChannel. The system property exists to provide compatibility with previous releases which do not implement the JVM-wide overlapping file lock check.
+
+Enhancements in J2SE 5.0
+java.nio
+
+    Class javax.net.ssl.SSLEngine was added. The existing J2SDK 1.4.0 secure communication infrastructure, javax.net.ssl.SSLSocket, was based on the I/O model of java.net.Socket. The SSLEngine class abstracts away the I/O model, and leaves developers free to secure communication pathways using alternate types of I/O. SSLEngine can be combined with the New I/O APIs to create implementations such as secure blocking or non-blocking SocketChannels. For details see the JSSE Reference Guide.
+
+Enhancements in Java 2 SDK v1.4
+java.io
+
+    In the FileInputStream and FileOutputStream classes, getChannel methods have been added to return the underlying FileChannel object, and the close methods have been revised to close the underlying channel.
+    Similarly, in the RandomAccessFile class, a getChannel method has been added and the close method has been revised to close the underlying channel. The RandomAccessFile constructors now support the mode characters "s" and "d" to allow the specification, at file-open time, of synchronous writes or synchronous-data writes.
+    In the InputStreamReader and OutputStreamWriter classes, constructors have been added that take a stream and a Charset object, and the getEncoding methods have been revised to return the historical name of the encoding being used. Constructors to InputStreamReader and OutputStreamWriter have been added that take existing CharsetDecoder and CharsetEncoder objects, respectively.
+
+java.nio
+
+    The nio packages were added to supplement the I/O facilities provided the java.io package.
+    Three new functions were added to the Java Native Interface (JNI) to support direct buffers. For information, see JNI Enhancements in v 1.4.
+
+Previous Enhancements
+
+    Features of java.io.File describes changes to the java.io.File class.
+    Other changes describes modifications made to the java.io package.
+    Character Streams discusses very early changes to the java.io class package to support character streams.
